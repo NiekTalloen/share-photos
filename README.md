@@ -1,18 +1,8 @@
-# create-svelte
+# Wedding photos
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Webapp that allows my wedding party guests to upload their photos and movies.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Built with Sveltekit.
 
 ## Developing
 
@@ -25,7 +15,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+## Building without Docker
 
 To create a production version of your app:
 
@@ -36,3 +26,23 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Building with Docker
+The Docker build will 
+* npm install all dependencies
+* run the npm build
+* package the result in a Docker image
+
+Run `docker build . --no-cache --tag wedding-photo:0.0.1`
+
+## Running in Docker
+Provide the following env variables:
+* `-e ORIGIN=http://localhost:3000`
+* `-e BODY_SIZE_LIMIT=1000000000`
+* `-e UPLOAD_FOLDER=/upload`
+
+Mount a volume to get access to the uploads: `-v /Users/stijnhooft/app/wedding-photos:/upload`
+
+Open port `3000` to access the front-end.
+
+
