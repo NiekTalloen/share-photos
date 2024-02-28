@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  wedding-photo:
+    image: stainii/wedding-photos:0.0.1
+    ports:
+      - "3000:3000"
+    environment:
+      ORIGIN: http://localhost:3000
+      BODY_SIZE_LIMIT: 1000000000
+      UPLOAD_FOLDER: /upload
+    volumes:
+      - /Users/stijnhooft/app/wedding-photos:/upload
