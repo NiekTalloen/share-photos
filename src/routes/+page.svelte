@@ -40,7 +40,6 @@
         }
     }
 
-
     input {
         background: 0;
         border: 0;
@@ -113,10 +112,14 @@
 
 </script>
 
+<svelte:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</svelte:head>
+
 <div class="app"
      in:fly="{{ y: -50, duration: 250, delay: 300 }}"
      out:fly="{{ y: -50, duration: 250 }}" >
-    <Polaroid>
+    <Polaroid rotate="1deg">
         <div class="image-wrapper" slot="image">
             <img src="shaary-en-stijn.jpg" alt="Shaary en Stijn">
             <div class="overlay">

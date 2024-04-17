@@ -1,73 +1,44 @@
-<style global>
-    @import 'filepond/dist/filepond.css';
-    @import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
-    :global(.filepond--root) {
-        max-height: 100dvh;
-    }
-    :global(.filepond--credits) {
-        display: none;
-    }
-
-    :global(.filepond--panel-root) {
-        background-color: #a3b18a;
-    }
-
-    :global(.filepond--image-preview) {
-        background-color: white;
-    }
-
-    :global(.filepond--file-action-button) {
-        cursor: pointer;
-    }
-
-    :global(.filepond--root .hello) {
-        margin-top: 70px;
-        font-size: 3rem;
-    }
-
-    :global(.filepond--root .hello, .filepond--root .uploadLink) {
-        cursor: pointer;
-    }
-
-    :global(.filepond--root .filepond--list-scroller) {
-        margin-top: 10em;
-    }
-
-    @media (min-width: 30em) {
-        :global(.filepond--item) {
-            width: calc(50% - 0.5em);
-        }
-    }
-
-    @media (min-width: 50em) {
-        :global(.filepond--item) {
-            width: calc(33.33% - 0.5em);
-        }
-    }
-</style>
-
 <script>
     import FilePond, {registerPlugin} from 'svelte-filepond';
     import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
     import FilePondPluginFileRename from 'filepond-plugin-file-rename';
+    import './filepond.css';
+    import {beforeNavigate} from "$app/navigation";
 
     export let name;
 
-    // Register the plugins
     registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType,
         FilePondPluginFileRename);
 
     let pond;
     let inputName = 'filepond';
+    let isUploading = false;
+
     let fileRenameFunction = (file) => {
         return `${name}_${file.name}`;
     };
+
     let getLabelIdle = () => {
         return `<div class="hello">Hallo <strong>${name}</strong>!</div><div class="uploadLink">Klik hier om foto's en videos te delen.</div>`
     };
+
+    let activateIsUploading = () => {
+        isUploading = true;
+    }
+
+    let deactivateIsUploading = () => {
+        isUploading = false;
+    }
+
+    beforeNavigate(({cancel}) => {
+        if (isUploading) {
+            if (!confirm('An upload is in progress. Leaving this page will cancel the upload.')) {
+                cancel();
+            }
+        }
+    });
 </script>
 
 <FilePond bind:this={pond} {inputName}
@@ -75,6 +46,8 @@
           allowMultiple={true}
           acceptedFileTypes="{['image/*', 'video/*']}"
           fileRenameFunction={fileRenameFunction}
+          onaddfilestart={activateIsUploading}
+          onprocessfiles={deactivateIsUploading}
           labelIdle={getLabelIdle()}
           labelInvalidField="Veld bevat ongeldige bestanden"
           labelFileWaitingForSize="Wachten op grootte"

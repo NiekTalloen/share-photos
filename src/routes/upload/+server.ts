@@ -2,7 +2,8 @@ import {error, fail, json} from '@sveltejs/kit';
 import * as fs from 'fs';
 import {unlinkSync} from 'fs';
 import * as path from "path";
-import { env } from '$env/dynamic/private'
+import {env} from '$env/dynamic/private';
+import sharp from "sharp";
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({request}) {
@@ -21,6 +22,7 @@ export async function POST({request}) {
     }
 
     let saveName = await saveFileWithUniqueName(env.UPLOAD_FOLDER, formData.filepond);
+    await transformAndSaveThumbnail(env.UPLOAD_FOLDER, "thumbnails", saveName);
 
     return json({
         name: saveName
@@ -52,6 +54,31 @@ async function saveFileWithUniqueName(directory, fileToUpload) {
     console.log(`File saved as ${fullPath}`);
 
     return newName;
+}
+
+async function transformAndSaveThumbnail(originalImagesFolder, thumbnailFolderName, fileToTransformToThumbnail) {
+    const maxWidth = 1024;
+    const maxHeight = 768;
+    const outputDirectory = path.join(originalImagesFolder, thumbnailFolderName);
+
+    if (!fs.existsSync(outputDirectory)) {
+        fs.mkdirSync(outputDirectory);
+    }
+
+    sharp(path.join(originalImagesFolder, fileToTransformToThumbnail))
+        .resize(maxWidth, maxHeight, {
+            fit: 'inside',
+            withoutEnlargement: true,
+        })
+        .jpeg({quality: 50, progressive: true})
+        .webp({quality: 50})
+        .toFile(path.join(outputDirectory, fileToTransformToThumbnail), err => {
+            if (err) {
+                console.error(`Error processing ${fileToTransformToThumbnail}: ${err}`);
+            } else {
+                console.debug(`Thumbnail created for ${fileToTransformToThumbnail}`);
+            }
+        });
 }
 
 /** @type {import('./$types').RequestHandler} */

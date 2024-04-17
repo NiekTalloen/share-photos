@@ -1,0 +1,51 @@
+@import 'filepond/dist/filepond.css';
+@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+.filepond--container input {
+    display: none;
+}
+
+.filepond--root {
+    max-height: 100dvh;
+}
+
+.filepond--credits {
+    display: none;
+}
+
+.filepond--panel-root {
+    background-color: #a3b18a;
+}
+
+.filepond--image-preview {
+    background-color: white;
+}
+
+.filepond--file-action-button {
+    cursor: pointer;
+}
+
+.filepond--root .hello {
+    margin-top: 70px;
+    font-size: 3rem;
+}
+
+.filepond--root .hello, .filepond--root .uploadLink {
+    cursor: pointer;
+}
+
+.filepond--root .filepond--list-scroller {
+    margin-top: 10em;
+}
+
+@media (min-width: 30em) {
+    .filepond--item {
+        width: calc(50% - 0.5em);
+    }
+}
+
+@media (min-width: 50em) {
+    .filepond--item {
+        width: calc(33.33% - 0.5em);
+    }
+}
