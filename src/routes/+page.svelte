@@ -90,25 +90,10 @@
     let name;
     let inputElement;
 
-    function debounce(func, wait) {
-        let timeout;
-        return function (...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
     function handleSubmit() {
         inputElement.blur();
         goto(`upload/${name}`);
     }
-
-    // Debounce the handleSubmit function
-    const debouncedSubmit = debounce(handleSubmit, 2000);
 
 </script>
 
@@ -121,18 +106,18 @@
      out:fly="{{ y: -50, duration: 250 }}" >
     <Polaroid rotate="1deg">
         <div class="image-wrapper" slot="image">
-            <img src="shaary-en-stijn.jpg" alt="Shaary en Stijn">
+            <img src="leon.jpg" alt="Léon">
             <div class="overlay">
                 <h3 class="text">Deel jouw foto's en filmpjes!</h3>
             </div>
         </div>
         <div slot="description">
             <div class="field">
-                <input type="text"
-                       bind:this={inputElement}
-                       bind:value={name}
-                       on:input={debouncedSubmit}
-                       placeholder="Wat is jouw naam?">
+                <form on:submit|preventDefault={handleSubmit}>
+                    <input bind:this={inputElement}
+                           bind:value={name}
+                           placeholder="Wat is jouw naam?">
+                </form>
                 <div class="line"></div>
             </div>
         </div>

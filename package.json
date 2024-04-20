@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "export UPLOAD_FOLDER=/Users/stijnhooft/app/wedding-photos && vite dev",
+		"dev": "set UPLOAD_FOLDER=/Users/nita/app/leon-photos&& vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",

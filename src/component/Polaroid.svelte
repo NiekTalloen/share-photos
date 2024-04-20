@@ -14,7 +14,7 @@
 <style>
     .polaroid {
         box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.3);
-        height: 300px;
+        height: 268px;
         width: 200px;
 
         border: solid white 20px;
