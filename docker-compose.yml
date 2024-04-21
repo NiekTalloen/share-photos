@@ -1,7 +1,6 @@
-version: '3.8'
 services:
-  wedding-photo:
-    image: stainii/wedding-photos:0.0.1
+  share-photos:
+    image: share-photos:0.0.1
     ports:
       - "3000:3000"
     environment:
@@ -9,4 +8,4 @@ services:
       BODY_SIZE_LIMIT: 1000000000
       UPLOAD_FOLDER: /upload
     volumes:
-      - /Users/stijnhooft/app/wedding-photos:/upload
+      - /home/nodon/Apps/share-photos:/upload
