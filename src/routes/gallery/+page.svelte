@@ -12,6 +12,7 @@
         grid-gap: 2rem;
         align-items: center;
         justify-content: center;
+        justify-items: center;
     }
 
     .link-to-gallery {
@@ -81,10 +82,12 @@
      in:fly="{{ y: -50, duration: 250, delay: 300 }}"
      out:fly="{{ y: -50, duration: 250 }}">
     <div class="container">
-        {#each data.images as image}
-            <Polaroid rotate={randomRotation()}>
+        {#each data.imageNamesAndSizes as image}
+            <Polaroid rotate={randomRotation()}
+                      landscape={image.width > image.height}
+                      compact={true}>
                 <div slot="image">
-                    <img data-src={'/gallery/' + image} src="loading.webp" alt=""/>
+                    <img data-src={'/gallery/' + image.name} src="loading.webp" alt=""/>
                 </div>
             </Polaroid>
         {/each}

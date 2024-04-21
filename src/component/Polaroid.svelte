@@ -1,8 +1,13 @@
 <script>
     export let rotate;
+    export let landscape;
+    export let compact;
 </script>
 
-<section class="polaroid" style={rotate ? `transform: rotate(${rotate});` : ''}>
+<section class="polaroid"
+         style={rotate ? `transform: rotate(${rotate});` : ''}
+         class:landscape={landscape}
+         class:compact={compact}>
     <div class="photo">
         <slot name="image"></slot>
     </div>
@@ -22,6 +27,15 @@
         background: white;
         position: relative;
         transition: all 0.4s;
+    }
+
+    .polaroid.landscape {
+        height: 200px;
+        width: 300px;
+    }
+
+    .polaroid.compact {
+        border-bottom-width: 40px;
     }
 
     .photo {
