@@ -1,5 +1,6 @@
 services:
   share-photos:
+    container_name: share-photos
     image: share-photos:0.0.1
     ports:
       - "3000:3000"
