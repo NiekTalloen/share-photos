@@ -5,7 +5,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      ORIGIN: http://localhost:3000 node build/index.js
+      ORIGIN: http://localhost:3000
       BODY_SIZE_LIMIT: 1000000000
       UPLOAD_FOLDER: /upload
     volumes:
