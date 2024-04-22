@@ -7,6 +7,6 @@ services:
     environment:
       ORIGIN: http://localhost:3000
       BODY_SIZE_LIMIT: 1000000000
-      UPLOAD_FOLDER: /share-photos
+      UPLOAD_FOLDER: /upload
     volumes:
       - /home/nodon/Apps/share-photos:/upload
