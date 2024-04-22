@@ -12,6 +12,7 @@
         grid-gap: 2rem;
         align-items: center;
         justify-content: center;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 
     .link-to-gallery {
