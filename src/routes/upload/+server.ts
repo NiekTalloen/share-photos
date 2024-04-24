@@ -71,7 +71,6 @@ async function transformAndSaveThumbnail(originalImagesFolder, thumbnailFolderNa
             withoutEnlargement: true,
         })
         .rotate()
-        .withMetadata()
         .jpeg({quality: 50, progressive: true})
         .webp({quality: 50})
         .toFile(path.join(outputDirectory, fileToTransformToThumbnail), err => {
