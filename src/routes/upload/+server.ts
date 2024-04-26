@@ -58,7 +58,7 @@ async function saveFileWithUniqueName(directory, fileToUpload) {
 
 async function transformAndSaveThumbnail(originalImagesFolder, thumbnailFolderName, fileToTransformToThumbnail) {
     const maxWidth = 1024;
-    const maxHeight = 768;
+    const maxHeight = 1024;
     const outputDirectory = path.join(originalImagesFolder, thumbnailFolderName);
 
     if (!fs.existsSync(outputDirectory)) {
@@ -70,6 +70,7 @@ async function transformAndSaveThumbnail(originalImagesFolder, thumbnailFolderNa
             fit: 'inside',
             withoutEnlargement: true,
         })
+        .rotate()
         .jpeg({quality: 50, progressive: true})
         .webp({quality: 50})
         .toFile(path.join(outputDirectory, fileToTransformToThumbnail), err => {
