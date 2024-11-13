@@ -8,5 +8,6 @@ services:
       ORIGIN: https://leon-talloen.com
       BODY_SIZE_LIMIT: 1000000000
       UPLOAD_FOLDER: /upload
+    restart: unless-stopped
     volumes:
       - /home/nodon/Apps/share-photos:/upload
